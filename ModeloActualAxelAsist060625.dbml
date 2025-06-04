@@ -1,0 +1,231 @@
+Table axel_afil_aut_persona {
+  id int [pk, increment]
+  tip_docum varchar(5)
+  num_docum varchar(20)
+  txt_nombre varchar(100)
+  txt_apellido varchar(100)
+  fec_nacimiento date
+  tip_sexo varchar(2) // F o M
+  cod_pais_telf varchar(5)
+  cod_area_telf varchar(5)
+  num_telefono varchar(10)
+  txt_email varchar(100)
+  tip_es_menor boolean  [default: false]
+  tip_docum_representante varchar(5)
+  num_docum_representante varchar(20)
+  tip_es_registrado boolean
+  fec_creacion datetime
+  fec_actualizacion datetime
+
+  indexes {
+    (tip_docum, num_docum) [unique]
+  }
+}
+
+Table axel_afil_aut_poliza {
+  id int [pk, increment]
+  id_cliente int
+  id_afiliado_aut int [ref: > axel_afil_aut_persona.id]
+  num_poliza varchar(50)
+  tip_docum varchar(5)
+  num_docum varchar(20)
+  tip_afiliado varchar(20)
+  fec_desde date
+  fec_hasta date
+  estatus_poliza varchar(20)
+  estatus_pago varchar(20)
+  id_plan_odonto int
+  id_plan_oftal int
+  id_plan_rehab int
+  id_plan_lab int
+  id_plan_imagen int
+  id_plan_cepc int
+  id_plan_nutri int
+  id_plan_mental int
+  id_plan_medocup int
+  id_plan_telemed int
+  id_plan_espmedi int
+  id_plan_enfcron int
+  id_plan_hogar int
+  id_plan_legal int
+  id_plan_tecno int
+  fec_creacion datetime
+  fec_actualizacion datetime
+}
+
+Table axel_contacto_no_autorizado {
+  id INT [pk, increment]
+  txt_nombre varchar(100) [not null]
+  txt_apellido varchar(100) [not null]
+  tip_docum varchar(5) [not null]
+  num_docum varchar(20) [not null]
+  cod_pais_telf varchar(5) [not null,ref: > axel_codigos_pais.codigo_pais]
+  cod_area_telf varchar(5) [not null,ref: > axel_codigos_area.codigo_area]
+  num_telefono varchar(10) [not null]
+  txt_email varchar(100) [not null]
+  txt_mensaje TEXT [not null]
+  acepte_politica TINYINT(1) [not null, default: 1]
+  fec_creacion DATETIME [not null]
+  atendido TINYINT(1) [not null, default: 0]
+  fec_atendido DATETIME [null]
+  txt_respuesta TEXT [null]
+}
+
+
+Table axel_afiliado_persona {
+  id int [pk, increment]
+  tip_docum varchar(5)
+  num_docum varchar(20) [unique]
+  txt_nombre varchar(100)
+  txt_apellido varchar(100)
+  fec_nacimiento date
+  cod_pais_telf varchar(5)
+  cod_area_telf varchar(5)
+  num_telefono varchar(10)
+  txt_email varchar(100)
+  tip_es_menor boolean
+  id_user bigint
+  fec_creacion datetime
+  fec_actualizacion datetime
+  indexes {
+    (tip_docum, num_docum) [unique]
+  }
+}
+
+Table axel_poliza {
+  id int [pk, increment]
+  id_cliente int
+  num_poliza varchar(50)
+  fec_desde date
+  fec_hasta date
+  estatus_pago varchar(20)
+  estatus_poliza varchar(20)
+  fec_creacion datetime
+  fec_actualizacion datetime
+  indexes {
+    (id_cliente, num_poliza) [unique]
+  }
+}
+
+Table axel_afiliado_poliza {
+  id int [pk, increment]
+  afiliado_id int [ref: > axel_afiliado_persona.id]
+  poliza_id int [ref: > axel_poliza.id]
+  tip_afiliado varchar(20)
+  tip_estado tinyint(1) // 1 = activo, 0 = inactivo
+  fec_desde date
+  fec_hasta date
+  fec_creacion datetime
+  fec_actualizacion datetime
+}
+
+Table axel_poliza_historial {
+  id int [pk, increment]
+  poliza_id int [ref: > axel_poliza.id]
+  fec_reporte datetime
+  cambio_en varchar(20)
+  txt_val_anterior text
+  txt_val_nuevo text
+  txt_origen varchar(100)
+  txt_observacion text
+  fec_creacion datetime
+}
+//Planes por poliza segun el tipo de servicio
+Table axel_poliza_plan {
+  id int [pk, increment]
+  poliza_id int [ref: > axel_poliza.id]
+  cod_servicio int [ref: > axel_dat_servicio.cod_servicio]
+  cod_plan int [ref: > axel_dat_planes.cod_plan]
+  fec_creacion datetime
+  indexes {
+    (poliza_id, cod_servicio) [unique]
+  }
+}
+// Definición de Planes tipo de servicio
+Table axel_dat_serv_plan {
+  id int [pk, increment]
+  cod_servicio int [ref: > axel_dat_servicio.cod_servicio]
+  cod_plan int [ref: > axel_dat_planes.cod_plan]
+  tip_estado tinyint(1) // 1 = activo, 0 = inactivo
+  indexes {
+    (cod_servicio, cod_plan) [unique]
+  }
+}
+
+Table axel_dat_serv_plan_cobertura {
+  id int [pk, increment]
+  id_serv_plan int [ref: > axel_dat_serv_plan.id]
+  cod_cobertura varchar(50) [ref: > axel_dat_cobertura.cod_cobertura]
+}
+
+Table axel_dat_cobertura {
+  cod_cobertura varchar(50) [pk]
+  txt_nombre varchar(100)
+  txt_descripcion text
+}
+Table axel_dat_servicio {
+  cod_servicio int [pk]
+  txt_nombre varchar(100)
+  txt_descripcion text
+}
+Table axel_dat_planes {
+  cod_plan int [pk]
+  txt_nombre varchar(100)
+  txt_descripcion text
+}
+
+Table axel_debug_log {
+  id int [pk, increment]
+  txt_tipo varchar(20)
+  txt_mensaje text
+  fec_creacion datetime
+}
+
+Table axel_codigos_pais {
+  codigo_pais varchar(5) [pk]
+  nombre varchar(100)
+}
+
+Table axel_codigos_area {
+  id int [pk, increment]
+  codigo_pais varchar(5) [ref: > axel_codigos_pais.codigo_pais]
+  codigo_area varchar(5)
+  nombre varchar(100)
+}
+
+Table axel_csv_logs {
+  id int [pk, increment]
+  id_cliente int
+  id_usuario int  // Usuario de WordPress que realiza la carga
+  txt_nombre_archivo varchar(255)
+  fec_carga datetime
+  num_registros_total int
+  num_insertados int
+  num_actualizados int
+  num_inactivados int
+  num_errores int
+  txt_observacion text [note: 'Campo opcional para observaciones generales de la carga']
+}
+
+
+Table axel_csv_log_detalle {
+  id int [pk, increment]
+  id_csv_log int [ref: > axel_csv_logs.id]
+  num_linea int
+  tip_docum varchar(5)
+  num_docum varchar(20)
+  num_poliza varchar(50)
+  tip_error varchar(10)
+  txt_mensaje text
+  tip_archivo varchar(20) // 'personas' o 'polizas'
+  fec_creacion datetime
+
+  indexes {
+    (id_csv_log)
+    (tip_docum, num_docum)
+    (num_poliza)
+    (tip_error)
+  }
+}
+
+
