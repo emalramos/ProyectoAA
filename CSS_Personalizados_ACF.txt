@@ -1,0 +1,270 @@
+/*************************************************************************/
+/* === ESTILOS GLOBALES FORMULARIO MULTIPASO USER REGISTRATION y ACF === */
+/* === FORMULARIO MULTIPASO: ESTILOS GENERALES === */
+/*************************************************************************/
+/************************************************************************/
+/* === FORMULARIO MULTIPASO: ESTILOS GLOBALES Y UNIFICADOS === */
+/************************************************************************/
+
+/* ───── Estilos base para campos ───── */
+.acf-form input[type="text"],
+.acf-form input[type="email"],
+.acf-form input[type="password"],
+.acf-form input[type="number"],
+.acf-form select,
+.acf-form textarea {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 24px;
+  padding: 14px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.2s ease;
+}
+
+.acf-form input:focus,
+.acf-form select:focus,
+.acf-form textarea:focus {
+  border-color: #009878;
+  outline: none;
+}
+
+.acf-form .acf-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+}
+
+.acf-form .acf-fields > .acf-field {
+  margin-bottom: 20px;
+}
+
+/* ───── Agrupación tipo documento + cédula ───── */
+.acf-form .col-50.doc-tipo,
+.acf-form .col-50.doc-id {
+  float: left;
+  width: 48%;
+  margin-right: 4%;
+  box-sizing: border-box;
+}
+
+.acf-form .col-50.doc-id {
+  margin-right: 0;
+}
+
+.acf-form .col-50.doc-id::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ───── Teléfono: código país, área y número ───── */
+.acf-form .tel-col {
+  float: left;
+  width: 32%;
+  margin-right: 2%;
+  box-sizing: border-box;
+}
+
+.acf-form .tel-col.tel-numero {
+  margin-right: 0;
+}
+
+/* Espacio inferior + clearfix visual */
+.acf-form .tel-col.tel-numero::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.acf-form .telefono-codigo,
+.acf-form .telefono-area,
+.acf-form .telefono-numero {
+  margin-bottom: 0 !important;
+}
+
+/* ───── Política de privacidad ───── */
+.acf-form .politica-check {
+  clear: both;
+  margin-top: 2.5rem;
+}
+
+.acf-field.politica-check .acf-input label a {
+  color: #007cba;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.acf-field.politica-check .acf-input label a:hover {
+  color: #004a3a;
+}
+
+/* ───── Botones: centrados y uniformes ───── */
+.form-nav-buttons {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.form-nav-buttons .btn-next,
+.form-nav-buttons .btn-prev,
+.form-nav-buttons .btn-submit {
+  margin: 0 auto;
+  float: none;
+  display: inline-block;
+  background-color: #009878;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-nav-buttons .btn-next:hover,
+.form-nav-buttons .btn-prev:hover,
+.form-nav-buttons .btn-submit:hover {
+  background-color: #004a3a;
+}
+
+/* ───── Ocultar botón de ACF en Paso 1 ───── */
+#acf-form-paso-1 input[type="submit"].acf-button {
+  display: none !important;
+}
+
+/* ───── Ocultar campos técnicos como Teléfono completo ───── */
+.acf-field.oculto {
+  display: none !important;
+}
+
+/* ───── Título de cada paso ───── */
+.form-step h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a535c;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+/* ───── Mensaje de bienvenida ───── */
+.mensaje-bienvenida {
+  background-color: #f0fbf9;
+  border-left: 4px solid #009878;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+.mensaje-bienvenida h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #004a3a;
+}
+.mensaje-bienvenida p {
+  font-size: 1rem;
+  margin: 0;
+  color: #333;
+}
+
+/* ───── Mensajes de error ───── */
+.acf-form .error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+/************************************************************************/
+/* === AJUSTES RESPONSIVOS Y DE CORRECCIÓN DE ALINEACIÓN FINAL === */
+/************************************************************************/
+
+/* 🟢 Corrección alineación del campo correo electrónico */
+.acf-form .correo_electronico {
+  width: 100% !important;
+  float: none !important;
+  clear: both;
+}
+
+/* 🟢 Corrección política de privacidad espaciada */
+.acf-form .politica-check {
+  clear: both;
+  margin-top: 2rem;
+}
+
+/* 🟢 Breakpoint para reorganizar campos en pantallas medianas (tablet horizontal o menos) */
+@media screen and (max-width: 1464px) {
+  .acf-form .tel-col {
+    width: 100% !important;
+    float: none !important;
+    margin-right: 0 !important;
+    margin-bottom: 16px;
+  }
+
+  .acf-form .col-50.doc-tipo,
+  .acf-form .col-50.doc-id {
+    width: 100% !important;
+    float: none !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* 🟢 Botones de navegación centrados */
+.form-nav-buttons {
+  text-align: center;
+  margin-top: 2rem;
+}
+.form-nav-buttons .btn-next,
+.form-nav-buttons .btn-prev,
+.form-nav-buttons .btn-submit {
+  margin: 0 auto;
+  display: inline-block;
+  float: none;
+}
+.error-label {
+  color: #d70000 !important;
+  font-weight: bold;
+}
+/****************************************************/
+/* Botón de carga de archivo personalizado */
+.acf-field-file .acf-uploader .acf-button {
+  background-color: #009878;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.acf-field-file .acf-uploader .acf-button:hover {
+  background-color: #004a3a;
+}
+
+/* Mostrar archivo ya cargado con espaciado elegante */
+.acf-field-file .file-wrap {
+  margin-top: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+/* Ocultar botón "Siguiente" interno de ACF si aparece */
+.acf-field-file input[type="submit"] {
+  display: none !important;
+}
+/* Estilo general para las descripciones de campos ACF */
+.acf-field .description {
+  font-weight: normal !important;
+  font-size: 0.95rem; /* Tamaño de letra ligeramente menor */
+  color: #444;        /* Gris suave para mayor legibilidad */
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  display: block;
+  line-height: 1.4;
+}
